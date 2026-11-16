@@ -1,0 +1,111 @@
+components:
+  schemas:
+    ThreatCreateRequest:
+      type: object
+      required:
+        - md5
+        - name
+        - severity
+        - type
+      properties:
+        md5:
+          type: string
+          pattern: '^[a-fA-F0-9]{32}$'
+          description: MD5-хеш файла (32 шестнадцатеричных символа)
+          example: "d41d8cd98f00b204e9800998ecf8427e"
+        sha256:
+          type: string
+          pattern: '^[a-fA-F0-9]{64}$'
+          description: SHA256-хеш файла
+          example: "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        name:
+          type: string
+          description: Название угрозы
+          example: "Trojan.Win32.Generic"
+        severity:
+          type: string
+          description: Уровень опасности
+          enum: [low, medium, high, critical]
+          example: "high"
+        type:
+          type: string
+          description: Категория угрозы
+          example: "trojan"
+        description:
+         type: string
+         description: Подробное описание угрозы
+         example: "Крадет пароли из браузера"
+
+    ThreatUpdateRequest:
+      type: object
+      required:
+        - name
+        - severity
+        - type
+      properties:
+        name:
+          type: string 
+          description: Название угрозы
+          example: "Trojan.Win32.Generic"
+        severity:
+          type: string
+          description: Уровень опасности
+          enum: [low, medium, high, critical]
+          example: "critical"
+        type:
+          type: string 
+          description: Категория угрозы
+          example: "ransomware"
+        description:
+          type: string
+          description: Подробное описание угрозы
+          example: "Шифрует файлы и требует выкуп"
+    
+    ThreatResponse:
+      type: object
+      properties:
+        md5:
+          type: string
+          desciption: MD5-хеш
+          example: "d41d8cd98f00b204e9800998ecf8427e"
+        sha256:
+          type: string
+          desription: SHA256-хеш файла
+          example: "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        name:
+          type: string
+          description: Название угрозы
+          example: "Trojan.Win32.Generic"
+        severity:
+          type: string
+          description: Уровень опасности
+          enum: [low, medium, high, critical]
+        type:
+          type: string
+          description: Категория угрозы
+        description:
+          type: string
+          description: Подробное описание
+        created_at:
+          type: string
+          format: date-time
+          description: Дата и время добавления записи
+          example: "2026-07-13T14:15:00Z"
+        updated_at:
+          type: string
+          format: date-time
+          description: Дата и время последнего обновления
+          example: "2026-07-14T09:15:00Z"
+    
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Человекочитаемое описание ошибки
+          example: "Threat not found"
+        details:
+          type: string
+          description: Дополнительная информация
+          example: "No threat with MD5 d41d8cd98f00b204e9800998ecf8427e found"
+          
